@@ -48,10 +48,10 @@ BursarApp::BursarApp(int argc, char *argv[])
     // mac specific
 #ifdef Q_WS_MAC
     // don't quit application when last window closes
-    setQuitOnLastWindowClosed(false);
+    //setQuitOnLastWindowClosed(false);
 
     // create mac style menu
-    createMacStyleMenu();
+    //createMacStyleMenu();
 #endif
 
     // create bursar database

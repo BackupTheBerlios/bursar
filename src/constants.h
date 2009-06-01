@@ -28,7 +28,7 @@
 #define APP_NAME "Bursar"
 
 // Application Version
-#define APP_VERSION "0.01"
+#define APP_VERSION "0.0.1"
 
 // Default extension for bursar files
 #define DB_DEFAULT_EXT "bdb"
