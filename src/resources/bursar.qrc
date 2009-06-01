@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/icons" >
+        <file alias="database-new.svg" >icons/database-new.svg</file>
+        <file alias="database-open.svg" >icons/database-open.svg</file>
+        <file alias="quit.svg" >icons/quit.svg</file>
+    </qresource>
+</RCC>
