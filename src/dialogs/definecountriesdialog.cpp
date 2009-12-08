@@ -24,10 +24,10 @@
 #include "definecountriesdialog.h"
 #include "ui_definecountriesdialog.h"
 
-#include "dbconstants.h"
+#include "constants.h"
 
-#include <QSqlDatabase>
 #include <QMessageBox>
+#include <QSqlDatabase>
 
 
 /*************************************************************************
@@ -37,14 +37,14 @@
 /**
   * Constructor
   */
-DefineCountriesDialog::DefineCountriesDialog(QWidget *parent, BursarDb *db) :
+DefineCountriesDialog::DefineCountriesDialog(QWidget *parent, BurDoc *doc) :
     QDialog(parent),
     m_ui(new Ui::DefineCountriesDialog)
 {
     m_ui->setupUi(this);
 
     // initialise dialog
-    init(db);
+    init(doc);
 }
 
 
@@ -119,6 +119,9 @@ void DefineCountriesDialog::on_addButton_clicked()
 
     // enable remove button
     m_ui->removeButton->setEnabled(true);
+
+    // set focus to table
+    m_ui->tableCountries->setFocus();
 }
 
 
@@ -149,10 +152,10 @@ void DefineCountriesDialog::on_removeButton_clicked()
 /**
   * Initialise dialog
   */
-void DefineCountriesDialog::init(BursarDb *db)
+void DefineCountriesDialog::init(BurDoc *doc)
 {
     // create model
-    createModel(db);
+    createModel(doc);
 
     // setup table view
     setupTableView();
@@ -165,10 +168,10 @@ void DefineCountriesDialog::init(BursarDb *db)
 /**
   * Create model for table view
   */
-void DefineCountriesDialog::createModel(BursarDb *db)
+void DefineCountriesDialog::createModel(BurDoc *doc)
 {
     // create model
-    m_model = new QSqlTableModel(this, db->dbConnection());
+    m_model = new QSqlTableModel(this, doc->dbConnection());
 
     // setup model
     m_model->setTable(TBL_COUNTRIES);

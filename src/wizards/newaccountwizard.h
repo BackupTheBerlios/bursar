@@ -24,12 +24,12 @@
 #ifndef NEWACCOUNTWIZARD_H
 #define NEWACCOUNTWIZARD_H
 
-#include "bursardb.h"
+#include "burdoc.h"
+#include "burcombobox.h"
 
 #include <QWizard>
 #include <QWizardPage>
 #include <QLabel>
-#include <QComboBox>
 #include <QLineEdit>
 
 class NewAccountWizard : public QWizard
@@ -37,12 +37,12 @@ class NewAccountWizard : public QWizard
     Q_OBJECT
 
 public:
-    NewAccountWizard(QWidget *parent, BursarDb *db);
+    NewAccountWizard(QWidget *parent, BurDoc *oc);
 
     void accept();
 
 private:
-    BursarDb *m_db;
+    BurDoc *m_doc;
 };
 
 
@@ -54,7 +54,7 @@ public:
     NewAccountWizardIntro(QWidget *parent = 0);
 
  private:
-    QLabel *label;
+    QLabel *m_label;
 };
 
 
@@ -63,11 +63,10 @@ class NewAccountWizardType : public QWizardPage
     Q_OBJECT
 
 public:
-    NewAccountWizardType(QWidget *parent = 0, BursarDb *db = 0);
+    NewAccountWizardType(QWidget *parent = 0, BurDoc *doc = 0);
 
 private:
-    QLabel *accountTypeLabel;
-    QComboBox *accountTypeCombo;
+    BurComboBox *m_accountTypeCombo;
 };
 
 
@@ -76,17 +75,17 @@ class NewAccountWizardGeneral : public QWizardPage
     Q_OBJECT
 
 public:
-    NewAccountWizardGeneral(QWidget *parent = 0, BursarDb *db = 0);
+    NewAccountWizardGeneral(QWidget *parent = 0, BurDoc *doc = 0);
 
 private:
-    QLabel *accountNameLabel;
-    QLineEdit *accountNameEdit;
+    QLabel *m_accountNameLabel;
+    QLineEdit *m_accountNameEdit;
 
-    QLabel *countryLabel;
-    QComboBox *countryCombo;
+    QLabel *m_countryLabel;
+    BurComboBox *m_countryCombo;
 
-    QLabel *currencyLabel;
-    QComboBox *currencyCombo;
+    QLabel *m_currencyLabel;
+    BurComboBox *m_currencyCombo;
 };
 
 

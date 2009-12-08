@@ -23,6 +23,7 @@
 
 #include "bursarapp.h"
 #include "constants.h"
+#include "config.h"
 
 #include "wizards/newdatabasewizard.h"
 
@@ -54,11 +55,11 @@ BursarApp::BursarApp(int argc, char *argv[])
     //createMacStyleMenu();
 #endif
 
-    // create bursar database
-    m_db = new BursarDb();
+    // create bursar document
+    m_doc = new BurDoc(FULL);
 
     // create main window
-    m_mainWindow = new MainWindow(m_db);
+    m_mainWindow = new MainWindow(m_doc);
 
 #ifndef Q_WS_MAC
     // show main window
@@ -72,7 +73,7 @@ BursarApp::BursarApp(int argc, char *argv[])
   */
 BursarApp::~BursarApp()
 {
-    delete m_db;
+    delete m_doc;
 
 #ifdef Q_WS_MAC
     delete m_menuBar;
@@ -91,27 +92,13 @@ BursarApp::~BursarApp()
   */
 void BursarApp::on_actionNew_triggered()
 {
-    NewDatabaseWizard wizard(NULL, m_db);
+    NewDatabaseWizard wizard(NULL, m_doc);
     if (wizard.exec() == QDialog::Accepted) {
         // setup main window
 
         // show main window
         m_mainWindow->show();
     }
-
-    //QString fileName;
-    //QFileDialog dialog;
-
-    //dialog.setDefaultSuffix("bdb");
-    //dialog.setConfirmOverwrite(true);
-
-    //fileName = dialog.getSaveFileName(NULL, tr("Create Database"), "", tr("Bursar Files (*.bdb);;All Files (*.*)"));
-
-    //if (fileName != "") {
-    //    if (m_db->createDatabase("Development Database", fileName)) {
-            //setupWindow();
-    //    }
-    //}
 }
 
 
@@ -128,7 +115,7 @@ void BursarApp::on_actionOpen_triggered()
     fileName = dialog.getOpenFileName(NULL, tr("Open Database"), "", tr("Bursar Files (*.bdb);;All Files (*.*)"));
 
     if (fileName != "") {
-        if (m_db->openDatabase(fileName)) {
+        if (m_doc->openDatabase(fileName)) {
             // create main window
             //if (m_mainWindow != NULL) {
             //    m_mainWindow = new MainWindow(m_db);

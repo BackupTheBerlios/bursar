@@ -23,6 +23,8 @@
 
 #include "bursarapp.h"
 
+#include "constants.h"
+
 /**
   * Application main function
   */
@@ -32,5 +34,12 @@ int main(int argc, char *argv[])
     BursarApp app(argc, argv);
 
     // execute application
-    return app.exec();
+    int l_exit = app.exec();
+
+    // check application return code
+    if ( !l_exit ) {
+        qDebug(APP_NAME " successfully terminated.");
+    }
+
+    return l_exit;
 }

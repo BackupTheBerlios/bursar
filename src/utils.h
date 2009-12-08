@@ -1,30 +1,44 @@
+/*************************************************************************
+ *
+ *                   Bursar - Personal Finance Manager
+ *
+ *  Copyright (c) 2009 by Marco Auer <marco@marcoauer.com>
+ *
+ *  This file is part of the Bursar project <http://bursar.berlios.de>
+ *
+ *  Bursar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Bursar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Bursar. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *************************************************************************/
+
 #ifndef UTILS_H
 #define UTILS_H
 
 #include <QString>
+#include <QLineEdit>
 
 class Utils
 {
 public:
-    /**
-      * Add extension to filename
-      */
-    static QString addFileExtension(const QString &fileName, const QString &extension)
-    {
-        QString newFileName = fileName;
+    static QString boolToStr(bool value);
+    static QString intToStr(int value);
 
-        if (newFileName != "") {
-            if (newFileName.right(4).toUpper() != QString(".").append(extension).toUpper()) {
-                if (newFileName.right(1) != ".") {
-                    newFileName.append(".");
-                }
+    static QString addFileExtension(const QString &fileName, const QString &extension);
 
-                newFileName.append(extension);
-            }
-        }
+    static QString findSharedDir();
+    static QString dbTemplatesDir();
 
-        return newFileName;
-    }
+    static void setFieldSizes(QLineEdit *lineEdit, int size);
 };
 
 #endif // UTILS_H

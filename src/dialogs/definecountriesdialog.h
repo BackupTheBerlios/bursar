@@ -24,7 +24,7 @@
 #ifndef DEFINECOUNTRIESDIALOG_H
 #define DEFINECOUNTRIESDIALOG_H
 
-#include "bursardb.h"
+#include "burdoc.h"
 
 #include <QtGui/QDialog>
 #include <QSqlTableModel>
@@ -38,7 +38,7 @@ class DefineCountriesDialog : public QDialog {
     Q_DISABLE_COPY(DefineCountriesDialog)
 
 public:
-    explicit DefineCountriesDialog(QWidget *parent = 0, BursarDb *db = 0);
+    explicit DefineCountriesDialog(QWidget *parent, BurDoc *doc);
     virtual ~DefineCountriesDialog();
 
 protected:
@@ -52,8 +52,8 @@ private slots:
     void on_removeButton_clicked();
 
 private:
-    void init(BursarDb *db);
-    void createModel(BursarDb *db);
+    void init(BurDoc *db);
+    void createModel(BurDoc *db);
     void setupTableView();
 
     Ui::DefineCountriesDialog *m_ui;

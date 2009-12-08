@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Marco Auer</author>
  <class>DefineCountriesDialog</class>
  <widget class="QDialog" name="DefineCountriesDialog">
   <property name="geometry">
@@ -57,6 +58,10 @@
    <property name="text">
     <string>Remove</string>
    </property>
+   <property name="icon">
+    <iconset resource="../resources/bursar.qrc">
+     <normaloff>:/icons/remove.svg</normaloff>:/icons/remove.svg</iconset>
+   </property>
   </widget>
   <widget class="QPushButton" name="addButton">
    <property name="geometry">
@@ -70,9 +75,15 @@
    <property name="text">
     <string>Add</string>
    </property>
+   <property name="icon">
+    <iconset resource="../resources/bursar.qrc">
+     <normaloff>:/icons/add.svg</normaloff>:/icons/add.svg</iconset>
+   </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources/bursar.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

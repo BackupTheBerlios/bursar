@@ -2,15 +2,24 @@
 PROJECT( bursar )
 
 # set version
-SET( bursar_VERSION "0.0.1" )
+SET( APP_VERSION "0.0.1" )
+
+# set data directory
+SET( DATA_DIR "../share/bursar" )
+
+# set db templates directory
+SET( DB_TEMPLATES_DIR "${DATA_DIR}/dbtemplates/" )
+
+# generate config file
+configure_file( src/cmake/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h )
 
 # create apple bundle
 IF( APPLE )
     SET( PROGNAME Bursar )
     #SET( MACOSX_BUNDLE_ICON_FILE Bursar.icns )
-    SET( MACOSX_BUNDLE_SHORT_VERSION_STRING ${bursar_VERSION} )
-    SET( MACOSX_BUNDLE_VERSION ${bursar_VERSION} )
-    SET( MACOSX_BUNDLE_LONG_VERSION_STRING Version ${bursar_VERSION} )
+    SET( MACOSX_BUNDLE_SHORT_VERSION_STRING ${APP_VERSION} )
+    SET( MACOSX_BUNDLE_VERSION ${APP_VERSION} )
+    SET( MACOSX_BUNDLE_LONG_VERSION_STRING Version ${APP_VERSION} )
     SET( CMAKE_OSX_ARCHITECTURES i386 )
 ELSE( APPLE )
     SET( PROGNAME bursar )
@@ -24,6 +33,9 @@ SET( CMAKE_INCLUDE_CURRENT_DIR TRUE )
 
 # include source directories
 INCLUDE_DIRECTORIES( src )
+INCLUDE_DIRECTORIES( src/base )
+INCLUDE_DIRECTORIES( src/data )
+INCLUDE_DIRECTORIES( src/widgets )
 INCLUDE_DIRECTORIES( ${CMAKE_CURRENT_BINARY_DIR} )
 
 # add headers

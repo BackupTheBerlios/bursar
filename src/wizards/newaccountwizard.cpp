@@ -24,11 +24,12 @@
 #include "newaccountwizard.h"
 
 #include "constants.h"
-#include "utils.h"
-#include "dbconstants.h"
+#include "burutils.h"
 
+#include <QDebug>
+#include <QFormLayout>
+#include <QMessageBox>
 #include <QVBoxLayout>
-#include <QGridLayout>
 
 
 /*************************************************************************
@@ -38,22 +39,19 @@
 /**
   * Constructor
   */
-NewAccountWizard::NewAccountWizard(QWidget *parent, BursarDb *db)
+NewAccountWizard::NewAccountWizard(QWidget *parent, BurDoc *doc)
     : QWizard(parent)
 {
     addPage(new NewAccountWizardIntro);
-    addPage(new NewAccountWizardType(this, db));
-    addPage(new NewAccountWizardGeneral(this, db));
+    addPage(new NewAccountWizardType(this, doc));
+    addPage(new NewAccountWizardGeneral(this, doc));
     addPage(new NewAccountWizardFinal);
 
-    // set database pointer
-    m_db = db;
+    // set document pointer
+    m_doc = doc;
 
     // set window title
-    setWindowTitle(tr("New Account"));
-
-    // change default property for combobox
-    setDefaultProperty("QComboBox", "currentText", "currentIndexChanged");
+    setWindowTitle(tr("Add New Account"));
 
     // enable cancel button
     setOption(QWizard::NoCancelButton, false);
@@ -66,13 +64,13 @@ NewAccountWizard::NewAccountWizard(QWidget *parent, BursarDb *db)
 void NewAccountWizard::accept()
 {
     // get values
-    //QString dbTitle = field("dbTitle").toString();
-    //QString curCode = field("curCode").toString();
-    //QString curName = field("curName").toString();
-    //QString fileName = field("fileName").toString();
+    QString accountType = field("accountType").toString();
+    QString accountName = field("accountName").toString();
+    QString countryCode = field("countryCode").toString();
+    QString currencyCode = field("currencyCode").toString();
 
-    // create database
-    //m_db->createDatabase(dbTitle, fileName, curCode, curName);
+    // add account
+    m_doc->addAccount(accountName, accountType, countryCode, currencyCode);
 
     // close wizard
     QDialog::accept();
@@ -93,11 +91,11 @@ NewAccountWizardIntro::NewAccountWizardIntro(QWidget *parent)
 {
     setTitle(tr("Introduction"));
 
-    label = new QLabel(tr("This wizard will generate a new account."));
-    label->setWordWrap(true);
+    m_label = new QLabel(tr("This wizard will add a new account to the database."));
+    m_label->setWordWrap(true);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(label);
+    layout->addWidget(m_label);
     setLayout(layout);
 }
 
@@ -111,28 +109,26 @@ NewAccountWizardIntro::NewAccountWizardIntro(QWidget *parent)
 /**
   * Constructor
   */
-NewAccountWizardType::NewAccountWizardType(QWidget *parent, BursarDb *db)
+NewAccountWizardType::NewAccountWizardType(QWidget *parent, BurDoc *doc)
     : QWizardPage(parent)
 {
     // set title and subtitle
     setTitle(tr("Select Account Type"));
-    setSubTitle(tr("Select the type of account which should be created."));
+    setSubTitle(tr("Select the type of account which should be added."));
 
     // add widgets
-    accountTypeLabel = new QLabel(tr("Account &Type:"));
-    accountTypeCombo = new QComboBox();
-    accountTypeLabel->setBuddy(accountTypeCombo);
+    m_accountTypeCombo = new BurComboBox();
 
     // load account types for combobox
-    db->loadAccountTypes(accountTypeCombo);
+    doc->loadAccountTypes(m_accountTypeCombo);
 
     // register fields
-    registerField("accountType*", accountTypeCombo);
+    registerField("accountType*", m_accountTypeCombo,
+                  "currentItemData", SIGNAL(currentItemDataChanged(QVariant)));
 
     // set layout
-    QGridLayout *layout = new QGridLayout;
-    layout->addWidget(accountTypeLabel, 0, 0);
-    layout->addWidget(accountTypeCombo, 1, 0);
+    QFormLayout *layout = new QFormLayout;
+    layout->addRow(tr("Account &Type:"), m_accountTypeCombo);
     setLayout(layout);
 }
 
@@ -146,7 +142,7 @@ NewAccountWizardType::NewAccountWizardType(QWidget *parent, BursarDb *db)
 /**
   * Constructor
   */
-NewAccountWizardGeneral::NewAccountWizardGeneral(QWidget *parent, BursarDb *db)
+NewAccountWizardGeneral::NewAccountWizardGeneral(QWidget *parent, BurDoc *doc)
     : QWizardPage(parent)
 {
     // set title and subtitle
@@ -154,37 +150,37 @@ NewAccountWizardGeneral::NewAccountWizardGeneral(QWidget *parent, BursarDb *db)
     setSubTitle(tr("Specify general information about the new account."));
 
     // add widgets
-    accountNameLabel = new QLabel(tr("Account &Name:"));
-    accountNameEdit = new QLineEdit();
-    accountNameLabel->setBuddy(accountNameEdit);
+    m_accountNameLabel = new QLabel(tr("Account &Name:"));
+    m_accountNameEdit = new QLineEdit();
+    m_accountNameLabel->setBuddy(m_accountNameEdit);
 
-    countryLabel = new QLabel(tr("Account C&ountry:"));
-    countryCombo = new QComboBox();
-    countryLabel->setBuddy(countryCombo);
+    m_countryLabel = new QLabel(tr("Account C&ountry:"));
+    m_countryCombo = new BurComboBox();
+    m_countryLabel->setBuddy(m_countryCombo);
 
-    currencyLabel = new QLabel(tr("Account &Currency:"));
-    currencyCombo = new QComboBox();
-    currencyLabel->setBuddy(currencyCombo);
+    m_currencyLabel = new QLabel(tr("Account &Currency:"));
+    m_currencyCombo = new BurComboBox();
+    m_currencyLabel->setBuddy(m_currencyCombo);
 
     // load data for comboboxes
-    db->loadCountries(countryCombo);
-    db->loadCurrencies(currencyCombo);
+    doc->loadCountries(m_countryCombo);
+    doc->loadCurrencies(m_currencyCombo);
 
     // register fields
-    registerField("accountName*", accountNameEdit);
-    registerField("country*", countryCombo);
-    registerField("currency*", currencyCombo);
+    registerField("accountName*", m_accountNameEdit);
+    registerField("countryCode*", m_countryCombo,
+                  "currentItemData", SIGNAL(currentItemDataChanged(QVariant)));
+    registerField("currencyCode*", m_currencyCombo,
+                  "currentItemData", SIGNAL(currentItemDataChanged(QVariant)));
 
     // set layout
-    QGridLayout *layout = new QGridLayout;
-    layout->addWidget(accountNameLabel, 0, 0);
-    layout->addWidget(accountNameEdit, 0, 1);
-    layout->addWidget(countryLabel, 1, 0);
-    layout->addWidget(countryCombo, 1, 1);
-    layout->addWidget(currencyLabel, 2, 0);
-    layout->addWidget(currencyCombo, 2, 1);
+    QFormLayout *layout = new QFormLayout;
+    layout->addRow(m_accountNameLabel, m_accountNameEdit);
+    layout->addRow(m_countryLabel, m_countryCombo);
+    layout->addRow(m_currencyLabel, m_currencyCombo);
     setLayout(layout);
 }
+
 
 
 

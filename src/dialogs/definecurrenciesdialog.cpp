@@ -24,10 +24,10 @@
 #include "definecurrenciesdialog.h"
 #include "ui_definecurrenciesdialog.h"
 
-#include "dbconstants.h"
+#include "constants.h"
 
-#include <QSqlDatabase>
 #include <QMessageBox>
+#include <QSqlDatabase>
 
 
 /*************************************************************************
@@ -37,14 +37,14 @@
 /**
   * Constructor
   */
-DefineCurrenciesDialog::DefineCurrenciesDialog(QWidget *parent, BursarDb *db) :
+DefineCurrenciesDialog::DefineCurrenciesDialog(QWidget *parent, BurDoc *doc) :
     QDialog(parent),
     m_ui(new Ui::DefineCurrenciesDialog)
 {
     m_ui->setupUi(this);
 
     // initialise dialog
-    init(db);
+    init(doc);
 }
 
 
@@ -118,6 +118,9 @@ void DefineCurrenciesDialog::on_addButton_clicked()
 
     // enable remove button
     m_ui->removeButton->setEnabled(true);
+
+    // set focus to table
+    m_ui->tableCurrencies->setFocus();
 }
 
 
@@ -148,10 +151,10 @@ void DefineCurrenciesDialog::on_removeButton_clicked()
 /**
   * Initialise dialog
   */
-void DefineCurrenciesDialog::init(BursarDb *db)
+void DefineCurrenciesDialog::init(BurDoc *doc)
 {
     // create model
-    createModel(db);
+    createModel(doc);
 
     // setup table view
     setupTableView();
@@ -164,10 +167,10 @@ void DefineCurrenciesDialog::init(BursarDb *db)
 /**
   * Create model for table view
   */
-void DefineCurrenciesDialog::createModel(BursarDb *db)
+void DefineCurrenciesDialog::createModel(BurDoc *doc)
 {
     // create model
-    m_model = new QSqlTableModel(this, db->dbConnection());
+    m_model = new QSqlTableModel(this, doc->dbConnection());
 
     // setup model
     m_model->setTable(TBL_CURRENCIES);
@@ -177,6 +180,7 @@ void DefineCurrenciesDialog::createModel(BursarDb *db)
     // set header titles
     m_model->setHeaderData(0, Qt::Horizontal, tr("Code"));
     m_model->setHeaderData(1, Qt::Horizontal, tr("Name"));
+    m_model->setHeaderData(2, Qt::Horizontal, tr("Symbol"));
 }
 
 
@@ -189,4 +193,5 @@ void DefineCurrenciesDialog::setupTableView()
     m_ui->tableCurrencies->setModel(m_model);
     m_ui->tableCurrencies->setColumnWidth(0, 40);
     m_ui->tableCurrencies->setColumnWidth(1, 196);
+    m_ui->tableCurrencies->setColumnWidth(2, 60);
 }

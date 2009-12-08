@@ -25,7 +25,7 @@
 #define BURSARAPP_H
 
 #include "mainwindow.h"
-#include "bursardb.h"
+#include "burdoc.h"
 
 #include <QApplication>
 #include <QMenuBar>
@@ -48,8 +48,8 @@ private slots:
 private:
     void createMacStyleMenu();
 
-    // Bursar database
-    BursarDb *m_db;
+    // Bursar document
+    BurDoc *m_doc;
 
     // mac style menu
     QMenuBar *m_menuBar;

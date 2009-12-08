@@ -24,8 +24,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "bursardb.h"
+#include "burdoc.h"
 
+#include <QListWidgetItem>
+#include <QSqlTableModel>
+#include <QDataWidgetMapper>
 #include <QMainWindow>
 
 namespace Ui
@@ -33,16 +36,17 @@ namespace Ui
     class MainWindowClass;
 }
 
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(BursarDb *db);
+    MainWindow(BurDoc *doc);
     ~MainWindow();
 
-    // setup main window
-    void setupMainWindow();
+protected:
+    void closeEvent(QCloseEvent *event);
 
 private slots:
     void on_actionNew_triggered();
@@ -53,17 +57,30 @@ private slots:
     void on_actionDefineCountries_triggered();
     void on_actionDefineCurrencies_triggered();
     void on_actionDefineTransactionTypes_triggered();
-    void on_actionDefineAccountTypes_triggered();
+
+    void on_sideMenu_itemClicked(QListWidgetItem *item);
 
 private:
-    // initialize mainmenu
     void initMainMenu();
-
-    // initialize toolbar
     void initToolBar();
+    void initInfoBar();
+    void initSideMenu();
+    void initAccountTree();
+    void initJournalTable();
 
-    // initialize account tree model
-    void initAccountTreeModel();
+    void refreshMainWindow();
+    void refreshMainMenu();
+    void refreshInfoBar();
+    void refreshAccountTree();
+    void refreshJournalTable();
+
+    // setup journal table model
+    void setupJournalTableModel();
+
+    // create journal table mapper
+    void createJournalTableMapper();
+
+    void showDashboard();
 
     // show "New Database" wizard
     void showNewDatabaseWizard();
@@ -89,13 +106,14 @@ private:
     // show "Define Categories" dialog
     void showDefineCategoriesDialog();
 
+    // main window widget
     Ui::MainWindowClass *m_ui;
 
-    // bursar database
-    BursarDb *m_db;
+    // bursar document
+    BurDoc *m_doc;
 
-    // account tree model
-    QStandardItemModel *m_accountTreeModel;
+    // journal table mapper
+    QDataWidgetMapper *m_journalTableMapper;
 };
 
 #endif // MAINWINDOW_H

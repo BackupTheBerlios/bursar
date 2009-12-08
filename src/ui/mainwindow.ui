@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>671</width>
-    <height>559</height>
+    <width>829</width>
+    <height>664</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -37,7 +37,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QFrame" name="infoFrame">
+     <widget class="QFrame" name="infoBar">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -474,131 +474,345 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QLabel" name="iconInfo">
+       <property name="geometry">
+        <rect>
+         <x>5</x>
+         <y>0</y>
+         <width>41</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>&lt;Icon&gt;</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelTitle">
+       <property name="geometry">
+        <rect>
+         <x>55</x>
+         <y>5</y>
+         <width>451</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>&lt;Titel&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelDescr">
+       <property name="geometry">
+        <rect>
+         <x>55</x>
+         <y>25</y>
+         <width>451</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>&lt;Description&gt;</string>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
-       <widget class="QSplitter" name="splitter">
+       <widget class="QListWidget" name="sideMenu">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
         </property>
-        <widget class="QTreeView" name="accountTree">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="palette">
-          <palette>
-           <active>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>231</red>
-               <green>237</green>
-               <blue>246</blue>
-              </color>
-             </brush>
-            </colorrole>
-            <colorrole role="Highlight">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>168</red>
-               <green>183</green>
-               <blue>205</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </active>
-           <inactive>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>231</red>
-               <green>237</green>
-               <blue>246</blue>
-              </color>
-             </brush>
-            </colorrole>
-            <colorrole role="Highlight">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>168</red>
-               <green>183</green>
-               <blue>205</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </inactive>
-           <disabled>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>212</red>
-               <green>208</green>
-               <blue>200</blue>
-              </color>
-             </brush>
-            </colorrole>
-            <colorrole role="Highlight">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>208</red>
-               <green>208</green>
-               <blue>208</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </disabled>
-          </palette>
-         </property>
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="headerHidden">
-          <bool>true</bool>
-         </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QStackedWidget" name="contextView">
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <property name="currentIndex">
+         <number>2</number>
+        </property>
+        <widget class="QWidget" name="pageDashboard">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+         </layout>
         </widget>
-        <widget class="QFrame" name="frame_2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
+        <widget class="QWidget" name="pageAccounts">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QTreeView" name="treeAccounts">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frameAccountButtons">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>34</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
+             <property name="margin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="buttonNewAccount">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>80</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>New Account</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>:/icons/add.svg</normaloff>:/icons/add.svg</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonEditAccount">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Edit Account</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonDeleteAccount">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Delete Account</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
+        <widget class="QWidget" name="pageJournal">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QFrame" name="frameJournalList">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelAccount">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Account:</string>
+               </property>
+               <property name="scaledContents">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="2">
+              <widget class="QTableView" name="tableJournal"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="BurComboBox" name="comboAccount" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frameJournalDetail">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelTrnDate">
+               <property name="text">
+                <string>Transaction Date:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="labelMemo">
+               <property name="text">
+                <string>Memo:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Cheque No.:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="labelRepDate">
+               <property name="text">
+                <string>Reporting Date:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QDateEdit" name="editTrnDate">
+               <property name="buttonSymbols">
+                <enum>QAbstractSpinBox::UpDownArrows</enum>
+               </property>
+               <property name="displayFormat">
+                <string>MM/dd/yy</string>
+               </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QDateEdit" name="editRepDate">
+               <property name="displayFormat">
+                <string>MM/dd/yy</string>
+               </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1" colspan="5">
+              <widget class="QLineEdit" name="editMemo"/>
+             </item>
+             <item row="0" column="4">
+              <widget class="QLabel" name="labelValDate">
+               <property name="text">
+                <string>Value Date:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="5">
+              <widget class="QDateEdit" name="editValDate">
+               <property name="displayFormat">
+                <string>MM/dd/yy</string>
+               </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelTrnType">
+               <property name="text">
+                <string>Transaction Type:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1" colspan="3">
+              <widget class="QComboBox" name="comboTrnType"/>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="labelCategory">
+               <property name="text">
+                <string>Category:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="2">
+              <widget class="QLineEdit" name="lineEdit_2"/>
+             </item>
+             <item row="6" column="1" colspan="5">
+              <widget class="QComboBox" name="comboCategory"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="pageCategories"/>
+        <widget class="QWidget" name="pageRecurring"/>
+        <widget class="QWidget" name="pageReports"/>
        </widget>
       </item>
      </layout>
@@ -610,7 +824,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>671</width>
+     <width>829</width>
      <height>22</height>
     </rect>
    </property>
@@ -620,6 +834,8 @@
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionProperties"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -652,6 +868,12 @@
    <property name="movable">
     <bool>false</bool>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
    <property name="toolButtonStyle">
     <enum>Qt::ToolButtonTextUnderIcon</enum>
    </property>
@@ -668,7 +890,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="app.qrc">
+    <iconset>
      <normaloff>:/icons/database-new.svg</normaloff>:/icons/database-new.svg</iconset>
    </property>
    <property name="text">
@@ -693,7 +915,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="app.qrc">
+    <iconset>
      <normaloff>:/icons/database-open.svg</normaloff>:/icons/database-open.svg</iconset>
    </property>
    <property name="text">
@@ -714,6 +936,10 @@
    </property>
   </action>
   <action name="actionNewAccount">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/icons/account-new.svg</normaloff>:/icons/account-new.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;New Account...</string>
    </property>
@@ -730,17 +956,44 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="app.qrc">
+    <iconset>
      <normaloff>:/icons/quit.svg</normaloff>:/icons/quit.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
    </property>
   </action>
+  <action name="actionProperties">
+   <property name="text">
+    <string>Properties...</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="app.qrc"/>
- </resources>
+ <customwidgets>
+  <customwidget>
+   <class>BurComboBox</class>
+   <extends>QWidget</extends>
+   <header>burcombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
  <connections/>
+ <designerdata>
+  <property name="gridDeltaX">
+   <number>5</number>
+  </property>
+  <property name="gridDeltaY">
+   <number>5</number>
+  </property>
+  <property name="gridSnapX">
+   <bool>true</bool>
+  </property>
+  <property name="gridSnapY">
+   <bool>true</bool>
+  </property>
+  <property name="gridVisible">
+   <bool>true</bool>
+  </property>
+ </designerdata>
 </ui>

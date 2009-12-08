@@ -24,7 +24,7 @@
 #ifndef DEFINECURRENCIESDIALOG_H
 #define DEFINECURRENCIESDIALOG_H
 
-#include "bursardb.h"
+#include "burdoc.h"
 
 #include <QtGui/QDialog>
 #include <QSqlTableModel>
@@ -37,7 +37,7 @@ class DefineCurrenciesDialog : public QDialog {
     Q_OBJECT
     Q_DISABLE_COPY(DefineCurrenciesDialog)
 public:
-    explicit DefineCurrenciesDialog(QWidget *parent = 0, BursarDb *db = 0);
+    explicit DefineCurrenciesDialog(QWidget *parent, BurDoc *doc);
     virtual ~DefineCurrenciesDialog();
 
 protected:
@@ -51,8 +51,8 @@ private slots:
     void on_removeButton_clicked();
 
 private:
-    void init(BursarDb *db);
-    void createModel(BursarDb *db);
+    void init(BurDoc *doc);
+    void createModel(BurDoc *doc);
     void setupTableView();
 
     Ui::DefineCurrenciesDialog *m_ui;

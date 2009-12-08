@@ -24,27 +24,40 @@
 #ifndef NEWDATABASEWIZARD_H
 #define NEWDATABASEWIZARD_H
 
-#include "bursardb.h"
+#include "burdoc.h"
 
-#include <QWizard>
-#include <QWizardPage>
+#include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QSpinBox>
+#include <QWizard>
+#include <QWizardPage>
+
+
+/*************************************************************************
+ *  NewDatabaseWizard
+ *************************************************************************/
 
 class NewDatabaseWizard : public QWizard
 {
     Q_OBJECT
 
 public:
-    NewDatabaseWizard(QWidget *parent, BursarDb *db);
+    NewDatabaseWizard(QWidget *parent, BurDoc *doc);
 
     void accept();
 
 private:
-    BursarDb *m_db;
+    BurDoc *m_doc;
 };
 
+
+
+
+/*************************************************************************
+ *  NewDatabaseWizardIntro
+ *************************************************************************/
 
 class NewDatabaseWizardIntro : public QWizardPage
 {
@@ -58,25 +71,33 @@ public:
 };
 
 
+
+
+/*************************************************************************
+ *  NewDatabaseWizardGeneral
+ *************************************************************************/
+
 class NewDatabaseWizardGeneral : public QWizardPage
 {
     Q_OBJECT
 
 public:
     NewDatabaseWizardGeneral(QWidget *parent = 0);
-
-private slots:
-    void curCodeEdit_editingFinished();
+    ~NewDatabaseWizardGeneral();
 
 private:
     QLabel *m_dbTitleLabel;
-    QLabel *m_curCodeLabel;
-    QLabel *m_curNameLabel;
+    QLabel *m_dbDescrLabel;
     QLineEdit *m_dbTitleEdit;
-    QLineEdit *m_curCodeEdit;
-    QLineEdit *m_curNameEdit;
+    QLineEdit *m_dbDescrEdit;
 };
 
+
+
+
+/*************************************************************************
+ *  NewDatabaseWizardFile
+ *************************************************************************/
 
 class NewDatabaseWizardFile : public QWizardPage
 {
@@ -95,6 +116,42 @@ private:
     QPushButton *m_chooseButton;
 };
 
+
+
+
+/*************************************************************************
+ *  NewDatabaseWizardSettings
+ *************************************************************************/
+
+class NewDatabaseWizardSettings : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    NewDatabaseWizardSettings(QWidget *parent = 0);
+    ~NewDatabaseWizardSettings();
+
+private slots:
+    void curCodeEdit_editingFinished();
+
+private:
+    QLabel *m_decDigitsLabel;
+    QLabel *m_curCodeLabel;
+    QLabel *m_curNameLabel;
+    QLabel *m_curSymbolLabel;
+    QSpinBox *m_decDigitsSpin;
+    QLineEdit *m_curCodeEdit;
+    QLineEdit *m_curNameEdit;
+    QLineEdit *m_curSymbolEdit;
+    QGroupBox *m_curGroupBox;
+};
+
+
+
+
+/*************************************************************************
+ *  NewDatabaseWizardFinal
+ *************************************************************************/
 
 class NewDatabaseWizardFinal : public QWizardPage
 {
