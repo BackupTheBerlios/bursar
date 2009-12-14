@@ -4,18 +4,20 @@ SET( bursar_SRCS
     src/bursarapp.cpp
     src/mainwindow.cpp
 
-    src/base/burobject.cpp
-    src/base/bursql.cpp
-    src/base/burdb.cpp
-    src/base/burutils.cpp
+    src/common/burobject.cpp
+    src/common/bursql.cpp
+    src/common/burdb.cpp
+    src/common/burutils.cpp
 
     src/data/burdoc.cpp
+    src/data/burdbcreationparams.cpp
+    src/data/burdbcreator.cpp
     src/data/accounttreemodel.cpp
     src/data/journaltablemodel.cpp
 
     src/widgets/burcombobox.cpp
 
-    src/wizards/newdatabasewizard.cpp
+    src/wizards/newdocumentwizard.cpp
     src/wizards/newaccountwizard.cpp
 
     src/dialogs/transactiondialog.cpp

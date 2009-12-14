@@ -25,6 +25,7 @@
 #define BURDOC_H
 
 #include "burdb.h"
+#include "burdbcreationparams.h"
 
 #include "accounttreemodel.h"
 #include "journaltablemodel.h"
@@ -47,14 +48,10 @@ public:
     BurDoc(BurDebugLevel debugLevel);
     ~BurDoc();
 
-    bool createDatabase(const QString &dbtitle, const QString &dbDescr,
-                        const QString &fileName, const int decDigits,
-                        const QString &curCode, const QString &curName,
-                        const QString &curSymbol);
+    bool createDocument(const QString &fileName, BurDbCreationParams *params);
 
-    QSqlDatabase dbConnection() const;
-    QString databaseTitle();
-    QString databaseDescr();
+    QString title();
+    QString description();
 
     AccountTreeModel *accountTreeModel();
     JournalTableModel *journalTableModel();
@@ -78,10 +75,6 @@ public:
 
     bool importFromXml(const QString &fileName);
 private:
-    bool createTables();
-
-    bool initSettings(const QString &title, const QString &descr, int decDigits, const QString &curCode);
-
     bool setDbVersion();
 
     bool addBaseCurrency(const QString &code, const QString &name, const QString &symbol);
@@ -94,20 +87,9 @@ private:
 
     void resetCache();
 
-    QString sqlField(const QString &name, const QString &type,
-                     int size = 0, bool notNull = false) const;
 
-    QString sqlCreateTableSettings() const;
-    QString sqlCreateTableCurrencies() const;
-    QString sqlCreateTableCountries() const;
-    QString sqlCreateTableAccountTypes() const;
-    QString sqlCreateTableAccounts() const;
-    QString sqlCreateTableTransactionTypes() const;
-    QString sqlCreateTableCategories() const;
-    QString sqlCreateTableTransactions() const;
 
-    // database connection
-    QSqlDatabase m_dbConnection;
+
 
     // account tree model
     AccountTreeModel *m_accountTreeModel;

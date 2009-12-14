@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="bursar" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\cmake\;CMake Files\cmake\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/marco/Projects/Bursar/bursar/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="bursar">
+         <Option output="/home/marco/Projects/Bursar/bursar/build/bursar" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/marco/Projects/Bursar/bursar/build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/marco/Projects/Bursar/bursar/src" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/base" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/common" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/data" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/widgets" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/wizards" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/build" />
+            <Add directory="/usr/include/qt4" />
+            <Add directory="/usr/include/qt4/QtGui" />
+            <Add directory="/usr/include/qt4/QtXml" />
+            <Add directory="/usr/include/qt4/QtSql" />
+            <Add directory="/usr/include/qt4/QtCore" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; bursar" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="bursar/fast">
+         <Option output="/home/marco/Projects/Bursar/bursar/build/bursar" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/marco/Projects/Bursar/bursar/build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/marco/Projects/Bursar/bursar/src" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/base" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/common" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/data" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/widgets" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/src/wizards" />
+            <Add directory="/home/marco/Projects/Bursar/bursar/build" />
+            <Add directory="/usr/include/qt4" />
+            <Add directory="/usr/include/qt4/QtGui" />
+            <Add directory="/usr/include/qt4/QtXml" />
+            <Add directory="/usr/include/qt4/QtSql" />
+            <Add directory="/usr/include/qt4/QtCore" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; bursar/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install">
+         <Option working_dir="/home/marco/Projects/Bursar/bursar/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; install" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/local">
+         <Option working_dir="/home/marco/Projects/Bursar/bursar/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; install/local" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/strip">
+         <Option working_dir="/home/marco/Projects/Bursar/bursar/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; install/strip" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="list_install_components">
+         <Option working_dir="/home/marco/Projects/Bursar/bursar/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; list_install_components" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/marco/Projects/Bursar/bursar/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/marco/Projects/Bursar/bursar/build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/qrc_bursar.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/common/moc_burdb.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/common/moc_burobject.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/common/moc_bursql.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_accounttreemodel.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_burdbcreationparams.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_burdbcreator.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_burdoc.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_journaltablemodel.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/dialogs/moc_definecountriesdialog.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/dialogs/moc_definecurrenciesdialog.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/dialogs/moc_transactiondialog.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/moc_bursarapp.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/moc_mainwindow.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/widgets/moc_burcombobox.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/wizards/moc_newaccountwizard.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/wizards/moc_newdocumentwizard.cxx">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/bursarapp.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/common/burdb.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/common/burobject.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/common/bursql.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/common/burutils.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/accounttreemodel.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/burdbcreationparams.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/burdbcreator.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/burdoc.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/journaltablemodel.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/dialogs/definecountriesdialog.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/dialogs/definecurrenciesdialog.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/dialogs/transactiondialog.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/main.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/mainwindow.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/widgets/burcombobox.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/wizards/newaccountwizard.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/wizards/newdocumentwizard.cpp">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/common/moc_burdb.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/common/moc_burobject.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/common/moc_bursql.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_accounttreemodel.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_burdbcreationparams.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_burdbcreator.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_burdoc.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/data/moc_journaltablemodel.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/dialogs/moc_definecountriesdialog.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/dialogs/moc_definecurrenciesdialog.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/dialogs/moc_transactiondialog.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/moc_bursarapp.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/moc_mainwindow.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/widgets/moc_burcombobox.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/wizards/moc_newaccountwizard.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/src/wizards/moc_newdocumentwizard.cxx.rule">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/ui_definecountriesdialog.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/ui_definecurrenciesdialog.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/ui_mainwindow.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/build/ui_transactiondialog.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/bursarapp.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/common/burdb.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/common/burobject.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/common/bursql.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/common/burutils.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/accounttreemodel.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/burdbcreationparams.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/burdbcreator.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/burdoc.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/data/journaltablemodel.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/dialogs/definecountriesdialog.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/dialogs/definecurrenciesdialog.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/dialogs/transactiondialog.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/mainwindow.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/resources/bursar.qrc">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/ui/definecountriesdialog.ui">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/ui/definecurrenciesdialog.ui">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/ui/mainwindow.ui">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/ui/transactiondialog.ui">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/widgets/burcombobox.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/wizards/newaccountwizard.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/wizards/newdocumentwizard.h">
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/src/cmake/config.h.cmake">
+          <Option virtualFolder="CMake Files\src\cmake\" />
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/cmake/headers.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/cmake/sources.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/cmake/ui.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/marco/Projects/Bursar/bursar/cmake/dbtemplates.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

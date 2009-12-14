@@ -25,7 +25,7 @@
 #include "constants.h"
 #include "config.h"
 
-#include "wizards/newdatabasewizard.h"
+#include "newdocumentwizard.h"
 
 #include <QDebug>
 #include <QDialog>
@@ -92,7 +92,7 @@ BursarApp::~BursarApp()
   */
 void BursarApp::on_actionNew_triggered()
 {
-    NewDatabaseWizard wizard(NULL, m_doc);
+    NewDocumentWizard wizard(NULL, m_doc);
     if (wizard.exec() == QDialog::Accepted) {
         // setup main window
 

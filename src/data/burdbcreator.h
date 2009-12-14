@@ -24,14 +24,39 @@
 #ifndef BURDBCREATOR_H
 #define BURDBCREATOR_H
 
-#include "burobject.h"
+#include "bursql.h"
+#include "burdbcreationparams.h"
 
-class BurDbCreator : public BurObject
+
+class BurDbCreator : public BurSql
 {
     Q_OBJECT
 
 public:
-    BurDbCreator();
+    BurDbCreator(const BurDebugLevel debugLevel);
+    ~BurDbCreator();
+
+    void setParameters(BurDbCreationParams *params);
+
+    bool createDatabase(QSqlDatabase dbConnection,
+                        const QString &fileName);
+
+private:
+    void deleteFile(const QString &fileName);
+    bool createTables(QSqlDatabase dbConnection);
+    bool addBaseCurrency(QSqlDatabase dbConnection);
+    bool initSettings(QSqlDatabase dbConnection);
+
+    QString sqlCreateTableSettings() const;
+    QString sqlCreateTableCurrencies() const;
+    QString sqlCreateTableCountries() const;
+    QString sqlCreateTableAccountTypes() const;
+    QString sqlCreateTableAccounts() const;
+    QString sqlCreateTableTransactionTypes() const;
+    QString sqlCreateTableCategories() const;
+    QString sqlCreateTableTransactions() const;
+
+    BurDbCreationParams *m_params;
 };
 
 #endif // BURDBCREATOR_H

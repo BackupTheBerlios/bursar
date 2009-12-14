@@ -3,17 +3,19 @@ SET( bursar_HDRS
     src/bursarapp.h
     src/mainwindow.h
 
-    src/base/burobject.h
-    src/base/bursql.h
-    src/base/burdb.h
+    src/common/burobject.h
+    src/common/bursql.h
+    src/common/burdb.h
 
     src/data/burdoc.h
+    src/data/burdbcreationparams.h
+    src/data/burdbcreator.h
     src/data/accounttreemodel.h
     src/data/journaltablemodel.h
 
     src/widgets/burcombobox.h
 
-    src/wizards/newdatabasewizard.h
+    src/wizards/newdocumentwizard.h
     src/wizards/newaccountwizard.h
 
     src/dialogs/transactiondialog.h

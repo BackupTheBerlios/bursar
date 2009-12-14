@@ -27,8 +27,8 @@
 #include "constants.h"
 #include "burutils.h"
 
-#include "wizards/newdatabasewizard.h"
-#include "wizards/newaccountwizard.h"
+#include "newdocumentwizard.h"
+#include "newaccountwizard.h"
 
 #include "dialogs/transactiondialog.h"
 #include "dialogs/definecountriesdialog.h"
@@ -341,7 +341,7 @@ void MainWindow::refreshMainWindow()
 
     // set window title
     if (l_dbOpen) {
-        this->setWindowTitle(QString(m_doc->databaseTitle() + " - " + APP_NAME));
+        this->setWindowTitle(QString(m_doc->title() + " - " + APP_NAME));
     } else {
         this->setWindowTitle(APP_NAME);
     }
@@ -397,8 +397,8 @@ void MainWindow::refreshMainMenu()
 void MainWindow::refreshInfoBar()
 {
     // refresh info bar
-    m_ui->labelTitle->setText(m_doc->databaseTitle());
-    m_ui->labelDescr->setText(m_doc->databaseDescr());
+    m_ui->labelTitle->setText(m_doc->title());
+    m_ui->labelDescr->setText(m_doc->description());
 }
 
 
@@ -467,9 +467,9 @@ void MainWindow::showDashboard()
   */
 void MainWindow::showNewDatabaseWizard()
 {
-    NewDatabaseWizard l_wizard(this, m_doc);
+    NewDocumentWizard wizard(this, m_doc);
 
-    if (l_wizard.exec() == QDialog::Accepted) {
+    if (wizard.exec() == QDialog::Accepted) {
         // initialize account tree
         initAccountTree();
 
@@ -489,9 +489,9 @@ void MainWindow::showNewDatabaseWizard()
   */
 void MainWindow::showNewAccountWizard()
 {
-    NewAccountWizard::NewAccountWizard l_wizard(this, m_doc);
+    NewAccountWizard::NewAccountWizard wizard(this, m_doc);
 
-    if (l_wizard.exec() == QDialog::Accepted) {
+    if (wizard.exec() == QDialog::Accepted) {
         // refresh main window
         refreshMainWindow();
     }

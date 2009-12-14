@@ -26,6 +26,7 @@
 #include "constants.h"
 #include "config.h"
 #include "burutils.h"
+#include "burdbcreator.h"
 
 #include <QDomDocument>
 #include <QDomElement>
@@ -44,10 +45,10 @@
   * Constructor
   */
 BurDoc::BurDoc(BurDebugLevel debugLevel)
-    : BurDb("BurDoc", debugLevel)
+    : BurDb(debugLevel)
 {
-    // initialise database connection
-    m_dbConnection = QSqlDatabase::addDatabase("QSQLITE");
+    // set object name
+    setObjectName("BurDoc");
 
     // initialise system locale
     m_locale = new QLocale(QLocale::system());
@@ -74,68 +75,32 @@ BurDoc::~BurDoc()
 
 
 /**
-  * Create new database
+  * Create a new document
   */
-bool BurDoc::createDatabase(const QString &dbTitle, const QString &dbDescr,
-                            const QString &fileName, const int decDigits,
-                            const QString &curCode, const QString &curName,
-                            const QString &curSymbol)
+bool BurDoc::createDocument(const QString &fileName, BurDbCreationParams *params)
 {
-    // delete file if already existing
-    if (QFile::exists(fileName)) {
-        QFile::remove(fileName);
-    }
+    BurDbCreator creator(debugLevel());
 
-    // set database name
-    m_dbConnection.setDatabaseName(fileName);
+    // set parameters
+    creator.setParameters(params);
 
-    // open database which will automatically create it
-    bool created = m_dbConnection.open();
+    if (creator.createDatabase(dbConnection(), fileName)) {
+        // reset cache
+        resetCache();
 
-    debug("createDatabase: Database '" + fileName + "' created", created);
-
-    if (created) {
-        // create tables
-        created = createTables();
-    }
-
-    if (created) {
-        // add base currency
-        created = addBaseCurrency(curCode, curName, curSymbol);
-    }
-
-    if (created) {
-        // initialise settings
-        created = initSettings(dbTitle, dbDescr, decDigits, curCode);
-    }
-
-    if (created) {
-        // import initial data from xml
-        created = importFromXml(DB_TEMPLATES_DIR "en_gb.xml");
-    }
-
-    // reset cache
-    resetCache();
-
-    return created;
+        return true;
+    } else {
+        return false;
+    };
 }
 
 
 /**
-  * Returns the DB connection
+  * Returns the document title
   */
-QSqlDatabase BurDoc::dbConnection() const
+QString BurDoc::title()
 {
-    return m_dbConnection;
-}
-
-
-/**
-  * Returns the database title
-  */
-QString BurDoc::databaseTitle()
-{
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
 
     // build sql statement
     query.prepare("SELECT " FLD_DB_TITLE " FROM " TBL_SETTINGS);
@@ -158,11 +123,11 @@ QString BurDoc::databaseTitle()
 
 
 /**
-  * Returns the database description
+  * Returns the document description
   */
-QString BurDoc::databaseDescr()
+QString BurDoc::description()
 {
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
 
     // build sql statement
     query.prepare("SELECT " FLD_DB_DESCR " FROM " TBL_SETTINGS);
@@ -208,7 +173,7 @@ JournalTableModel *BurDoc::journalTableModel()
 int BurDoc::decimalDigits()
 {
     if (m_decimalDigits == -1) {
-        QSqlQuery query(m_dbConnection);
+        QSqlQuery query(dbConnection());
 
         // build sql statement
         query.prepare("SELECT " FLD_DECIMAL_DIGITS " FROM " TBL_SETTINGS);
@@ -256,7 +221,7 @@ bool BurDoc::setDatabaseTitle(const QString &title)
         setLastErrorText(query.lastError());
     }
 
-   debug("setDatabaseTitle: Set database title", result);
+   debug(FULL, "setDatabaseTitle: Set database title", result);
 
    return result;
 }
@@ -283,7 +248,7 @@ bool BurDoc::addAccount(const QString &accountName, const QString &accountType,
     query.bindValue(":currency", currencyCode);
     query.bindValue(":balance", 0);
 
-    debug("addAccount " + query.lastQuery());
+    debug(FULL, "addAccount " + query.lastQuery());
 
     // run statement
     if (query.exec()) {
@@ -293,41 +258,13 @@ bool BurDoc::addAccount(const QString &accountName, const QString &accountType,
         setLastErrorText(query.lastError());
     }
 
-    debug("addAccount: Add new account", result);
+    debug(FULL, "addAccount: Add new account", result);
 
     return result;
 }
 
 
-/**
-  * Add base currency
-  */
-bool BurDoc::addBaseCurrency(const QString &code, const QString &name,
-                             const QString &symbol)
-{
-    QSqlQuery sql;
-    bool result = false;
 
-    // build sql statement
-    sql.prepare("INSERT INTO " TBL_CURRENCIES "("
-                FLD_CURRENCY_CODE "," FLD_CURRENCY_NAME "," FLD_CURRENCY_SYMBOL ")"
-                "VALUES (:code, :name, :symbol)");
-    sql.bindValue(":code", code);
-    sql.bindValue(":name", name);
-    sql.bindValue(":symbol", symbol);
-
-    // run statement
-    if (sql.exec()) {
-        result = true;
-    } else {
-        // set last error text
-        setLastErrorText(sql.lastError());
-    }
-
-    debug("createDatabase: Add base currency", result);
-
-    return result;
-}
 
 
 /**
@@ -336,7 +273,7 @@ bool BurDoc::addBaseCurrency(const QString &code, const QString &name,
 QList<QStandardItem *> BurDoc::accountNames(const QString &accountType)
 {
     QList<QStandardItem *> list;
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
     QStandardItem *item;
     
     // prepare sql statement
@@ -371,7 +308,7 @@ QList<QStandardItem *> BurDoc::accountNames(const QString &accountType)
 QList<QStandardItem *> BurDoc::accountBanks(const QString &accountType)
 {
     QList<QStandardItem *> list;
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
     QStandardItem *item;
 
     // create a red brush for negative values
@@ -410,7 +347,7 @@ QList<QStandardItem *> BurDoc::accountBanks(const QString &accountType)
 QList<QStandardItem *> BurDoc::accountCountries(const QString &accountType)
 {
     QList<QStandardItem *> list;
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
     QStandardItem *item;
 
     // create a red brush for negative values
@@ -460,7 +397,7 @@ QList<QStandardItem *> BurDoc::accountCountries(const QString &accountType)
 QList<QStandardItem *> BurDoc::accountBalances(const QString &accountType)
 {
     QList<QStandardItem *> list;
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
     QStandardItem *item;
 
     // create a red brush for negative values
@@ -509,7 +446,7 @@ QList<QStandardItem *> BurDoc::accountBalances(const QString &accountType)
   */
 bool BurDoc::loadAccounts(BurComboBox *comboBox)
 {
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
 
     // delete existing entries
     comboBox->clear();
@@ -543,7 +480,7 @@ bool BurDoc::loadAccounts(BurComboBox *comboBox)
   */
 bool BurDoc::loadAccountTypes(BurComboBox *comboBox)
 {
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
 
     // delete existing entries and add blank entry
     comboBox->clear();
@@ -578,7 +515,7 @@ bool BurDoc::loadAccountTypes(BurComboBox *comboBox)
   */
 bool BurDoc::loadCurrencies(BurComboBox *comboBox)
 {
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
 
     // delete existing entries and add blank entry
     comboBox->clear();
@@ -613,7 +550,7 @@ bool BurDoc::loadCurrencies(BurComboBox *comboBox)
   */
 bool BurDoc::loadCountries(BurComboBox *comboBox)
 {
-    QSqlQuery query(m_dbConnection);
+    QSqlQuery query(dbConnection());
 
     // delete existing entries and add blank entry
     comboBox->clear();
@@ -692,54 +629,6 @@ bool BurDoc::importFromXml(const QString &fileName)
  *  PRIVATE FUNCTIONS
  *************************************************************************/
 
-/**
-  * Create tables for a new database
-  */
-bool BurDoc::createTables()
-{
-    bool created = executeQuery(sqlCreateTableCurrencies());
-
-    if (created) created = executeQuery(sqlCreateTableCountries());
-    if (created) created = executeQuery(sqlCreateTableAccountTypes());
-    if (created) created = executeQuery(sqlCreateTableAccounts());
-    if (created) created = executeQuery(sqlCreateTableTransactionTypes());
-    if (created) created = executeQuery(sqlCreateTableCategories());
-    if (created) created = executeQuery(sqlCreateTableTransactions());
-    if (created) created = executeQuery(sqlCreateTableSettings());
-    
-    debug("createTables: Created tables", created);
-    
-    return created;
-}
-
-
-/**
-  * Initialise settings
-  */
-bool BurDoc::initSettings(const QString &title,  const QString &descr, int decDigits, const QString &curCode)
-{
-    QSqlQuery sql;
-
-    // prepare sql statement
-    sql.prepare("INSERT INTO " TBL_SETTINGS " (" FLD_DB_TITLE "," FLD_DB_DESCR "," FLD_DB_VERSION ","
-                FLD_DECIMAL_DIGITS "," FLD_CURRENCY_CODE ") "
-                "VALUES(:title, :descr, :version, :digits, :currency)");
-    sql.bindValue(":title", title);
-    sql.bindValue(":descr", descr);
-    sql.bindValue(":version", DB_VERSION);
-    sql.bindValue(":digits", decDigits);
-    sql.bindValue(":currency", curCode);
-
-    // run statement
-    if (sql.exec()) {
-        return true;
-    } else {
-        // set last error text
-        setLastErrorText(sql.lastError());
-
-        return false;
-    }
-}
 
 
 /**
@@ -902,147 +791,10 @@ void BurDoc::resetCache()
 }
 
 
-/**
-  * Create SQL line for create table statement
-  */
-QString BurDoc::sqlField(const QString &name, const QString &type,
-                         int size, bool notNull) const
-{
-    QString sql;
-
-    sql = name + " " + type;
-
-    // add size information
-    if (size > 0) sql = sql + "(" + BurUtils::intToStr(size) + ")";
-
-    // add not null statement
-    if (notNull) sql = sql + " NOT NULL";
-
-    return sql;
-}
 
 
-/**
-  * Returns create statement for table SETTINGS
-  */
-QString BurDoc::sqlCreateTableSettings() const
-{
-    return "CREATE TABLE " + QString(TBL_SETTINGS) + " (" +
-           sqlField(FLD_DB_TITLE, "TEXT", MAX_DB_TITLE) + "," +
-           sqlField(FLD_DB_VERSION, "TEXT", MAX_DB_VERSION) + "," +
-           sqlField(FLD_DB_DESCR, "TEXT", MAX_DB_DESCR) + "," +
-           sqlField(FLD_CURRENCY_CODE, "TEXT", MAX_CURRENCY_CODE) + "," +
-           sqlField(FLD_DECIMAL_DIGITS, "INTEGER") +
-           ")";
-}
 
 
-/**
-  * Returns create statement for table CURRENCIES
-  */
-QString BurDoc::sqlCreateTableCurrencies() const
-{
-    return "CREATE TABLE " + QString(TBL_CURRENCIES) + "(" +
-           sqlField(FLD_CURRENCY_CODE, "TEXT", MAX_CURRENCY_CODE, true) + "," +
-           sqlField(FLD_CURRENCY_NAME, "TEXT", MAX_CURRENCY_NAME, true) + "," +
-           sqlField(FLD_CURRENCY_SYMBOL, "TEXT", MAX_CURRENCY_SYMBOL) + "," +
-           "PRIMARY KEY(" + QString(FLD_CURRENCY_CODE) + ")"
-           ")";
-}
 
 
-/**
-  * Returns create statement for table COUNTRIES
-  */
-QString BurDoc::sqlCreateTableCountries() const
-{
-    return "CREATE TABLE " + QString(TBL_COUNTRIES) + "(" +
-           sqlField(FLD_COUNTRY_CODE, "TEXT", MAX_COUNTRY_CODE, true) + "," +
-           sqlField(FLD_COUNTRY_NAME, "TEXT", MAX_COUNTRY_NAME, true) + ","
-           "PRIMARY KEY(" + QString(FLD_COUNTRY_CODE) + ")"
-           ")";
-}
 
-
-/**
-  * Returns create statement for table ACCOUNT_TYPES
-  */
-QString BurDoc::sqlCreateTableAccountTypes() const
-{
-    return "CREATE TABLE " + QString(TBL_ACCOUNT_TYPES) + "(" +
-           sqlField(FLD_ACCOUNT_TYPE_CODE, "TEXT", MAX_ACCOUNT_TYPE_CODE, true) + "," +
-           sqlField(FLD_ACCOUNT_TYPE_NAME, "TEXT", MAX_ACCOUNT_TYPE_NAME, true) + ","
-           "PRIMARY KEY(" + QString(FLD_ACCOUNT_TYPE_CODE) + ")"
-           ")";
-}
-
-
-/**
-  * Returns create statement for table ACCOUNTS
-  */
-QString BurDoc::sqlCreateTableAccounts() const
-{
-    return "CREATE TABLE ACCOUNTS ("
-           "   ACT_ID INTEGER PRIMARY KEY,"
-           "   ACT_NAME VARCHAR(30) NOT NULL,"
-           "   ACT_TYPE_CODE VARCHAR(3) NOT NULL,"
-           "   ACT_CODE VARCHAR(20),"
-           "   BANK_NAME VARCHAR(30),"
-           "   BANK_CODE VARCHAR(20),"
-           "   CUR_CODE VARCHAR(3) NOT NULL,"
-           "   CTY_CODE VARCHAR(3) NOT NULL,"
-           "   ACT_NOTES VARCHAR(1024),"
-           "   ACT_BALANCE DECIMAL(8, 2),"
-           "   CONSTRAINT COUNTRIES_FK FOREIGN KEY (CTY_CODE) REFERENCES COUNTRIES (CTY_CODE) ON DELETE RESTRICT,"
-           "   CONSTRAINT CURRENCIES_FK FOREIGN KEY (CUR_CODE) REFERENCES CURRENCIES (CUR_CODE) ON DELETE RESTRICT,"
-           "   CONSTRAINT ACCOUNT_TYPES_FK FOREIGN KEY (ACT_TYPE_CODE) REFERENCES ACCOUNT_TYPES (ACT_TYPE_CODE) ON DELETE RESTRICT"
-           ")";
-}
-
-
-/**
-  * Returns create statement for table TRANSACTION_TYPES
-  */
-QString BurDoc::sqlCreateTableTransactionTypes() const
-{
-    return "CREATE TABLE " + QString(TBL_TRANSACTION_TYPES) + "(" +
-           sqlField(FLD_TRANSACTION_TYPE_CODE, "TEXT", MAX_TRANSACTION_TYPE_CODE, true) + "," +
-           sqlField(FLD_TRANSACTION_TYPE_NAME, "TEXT", MAX_TRANSACTION_TYPE_NAME, true) + "," +
-           "PRIMARY KEY(" + QString(FLD_TRANSACTION_TYPE_CODE) + ")"
-           ")";
-}
-
-
-/**
-  * Returns create statement for table CATEGRORIES
-  */
-QString BurDoc::sqlCreateTableCategories() const
-{
-    return "CREATE TABLE CATEGORIES ("
-           "   CAT_ID INTEGER PRIMARY KEY,"
-           "   CAT_NAME VARCHAR(30) NOT NULL,"
-           "   CAT_TYPE VARCHAR(1) NOT NULL"
-           ")";
-}
-
-
-/**
-  * Returns create statement for table TRANSACIONS
-  */
-QString BurDoc::sqlCreateTableTransactions() const
-{
-    return "CREATE TABLE TRANSACTIONS ("
-           "   TRN_ID INTEGER PRIMARY KEY,"
-           "   ACT_ID INTEGER NOT NULL,"
-           "   CAT_ID INTEGER NOT NULL,"
-           "   TRN_DATE DATE NOT NULL,"
-           "   TRN_TYPE_CODE VARCHAR(3) NOT NULL,"
-           "   TRN_MEMO VARCHAR(300),"
-           "   TRN_AMOUNT DECIMAL(8, 2),"
-           "   TRN_RECONCILED VARCHAR(1) DEFAULT 'N',"
-           "   TRN_CHEQUE_NO VARCHAR(15),"
-           "   CONSTRAINT ACCOUNTS_FK FOREIGN KEY (ACT_ID) REFERENCES ACCOUNTS (ACT_ID) ON DELETE CASCADE,"
-         //  "   CONSTRAINT TRANSACTION_TYPES_FK FOREIGN KEY (TRN_TYPE_CODE) REFERENCES TRANSACTION_TYPES (TRN_TYPE_CODE) ON DELETE RESTRICT,"
-           "   CONSTRAINT CATEGORIES_FK FOREIGN KEY (CAT_ID) REFERENCES CATEGORIES (CAT_ID) ON DELETE RESTRICT"
-           ")";
-}
