@@ -1,8 +1,9 @@
 # bursar sources
 SET( bursar_SRCS
     src/main.cpp
-    src/bursarapp.cpp
-    src/mainwindow.cpp
+
+    src/app/burapp.cpp
+    src/app/mainwindow.cpp
 
     src/common/burobject.cpp
     src/common/bursql.cpp

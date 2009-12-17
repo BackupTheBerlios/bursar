@@ -63,13 +63,6 @@ BurDoc::BurDoc(BurDebugLevel debugLevel)
   */
 BurDoc::~BurDoc()
 {
-    QStringList connections = QSqlDatabase::connectionNames();
-
-    for (int i = 0; i < connections.count(); i++) {
-        qDebug() << connections.at(i);
-        QSqlDatabase::removeDatabase(connections.at(i));
-    }
-
     delete m_locale;
 }
 

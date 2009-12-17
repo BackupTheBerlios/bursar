@@ -21,25 +21,28 @@
  *
  *************************************************************************/
 
-#include "burapp.h"
+#ifndef BURAPP_H
+#define BURAPP_H
 
-#include "constants.h"
+#include "burdoc.h"
+#include "mainwindow.h"
 
-/**
-  * Application main function
-  */
-int main(int argc, char *argv[])
+#include <QApplication>
+
+class BurApp : public QApplication
 {
-    // create application
-    BurApp app(argc, argv);
+    Q_OBJECT
 
-    // execute application
-    int l_exit = app.exec();
+public:
+    BurApp(int argc, char *argv[]);
+    ~BurApp();
 
-    // check application return code
-    if ( !l_exit ) {
-        qDebug(APP_NAME " successfully terminated.");
-    }
+private:
+    // document
+    BurDoc *m_doc;
 
-    return l_exit;
-}
+    // main window
+    MainWindow *m_mainWindow;
+};
+
+#endif // BURAPP_H

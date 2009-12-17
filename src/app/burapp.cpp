@@ -22,24 +22,41 @@
  *************************************************************************/
 
 #include "burapp.h"
-
 #include "constants.h"
+#include "config.h"
+
+#include <QDebug>
+#include <QDialog>
+
+
+/*************************************************************************
+ *  PUBLIC FUNCTIONS
+ *************************************************************************/
 
 /**
-  * Application main function
+  * Constructor
   */
-int main(int argc, char *argv[])
+BurApp::BurApp(int argc, char *argv[])
+    : QApplication(argc, argv)
 {
-    // create application
-    BurApp app(argc, argv);
+    // set application properties
+    setApplicationName(APP_NAME);
+    setApplicationVersion(APP_VERSION);
 
-    // execute application
-    int l_exit = app.exec();
+    // create document
+    m_doc = new BurDoc(FULL);
 
-    // check application return code
-    if ( !l_exit ) {
-        qDebug(APP_NAME " successfully terminated.");
-    }
+    // create main window
+    m_mainWindow = new MainWindow(m_doc);
 
-    return l_exit;
+    // show main window
+    m_mainWindow->show();
+}
+
+
+/**
+  * Destructor
+  */
+BurApp::~BurApp()
+{
 }

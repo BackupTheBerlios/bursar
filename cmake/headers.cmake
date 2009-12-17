@@ -1,7 +1,7 @@
 # bursar header
 SET( bursar_HDRS 
-    src/bursarapp.h
-    src/mainwindow.h
+    src/app/burapp.h
+    src/app/mainwindow.h
 
     src/common/burobject.h
     src/common/bursql.h
